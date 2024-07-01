@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation d'arrière-plan</title>
+    <style>
+        /* Styles de base pour le corps et le html */
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Empêche le défilement */
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styles pour les images d'arrière-plan */
+        .background-image {
+            position: absolute;
+            top: 0;
+            width: 33.33%; /* Largeur pour chaque image pour couvrir ensemble 100% de la largeur de la page */
+            height: 100%; /* Hauteur complète de la page */
+            object-fit: cover; /* Assure que l'image couvre l'espace dédié sans déformation */
+        }
+
+        #image1 {
+            right: -100%; /* Démarre hors de la page à droite */
+            animation: slideInFromRight 2s forwards; /* Animation pour entrer */
+        }
+
+        #image2 {
+            left: -100%; /* Démarre hors de la page à gauche */
+            animation: slideInFromLeft 2s forwards; /* Animation pour entrer */
+        }
+
+        #image3 {
+            left: 33.33%; /* Positionne au centre */
+            opacity: 0; /* Commence transparente */
+            animation: fadeIn 2s 2s forwards; /* Fade in après que les autres images soient en place */
+        }
+
+        #animated-text {
+            position: absolute;
+            bottom: 0; /* Positionne au bas de la page */
+            width: 100%; /* Prend toute la largeur de la page */
+            text-align: center; /* Centre le texte horizontalement */
+            font-size: 60px; /* Taille de la police */
+            color: white; /* Couleur du texte */
+            padding: 20px 0; /* Ajoute un peu d'espace au-dessus et en dessous du texte */
+        }
+
+        /* Keyframes pour les animations */
+        @keyframes slideInFromLeft {
+            to {
+                left: 0;
+            }
+        }
+
+        @keyframes slideInFromRight {
+            to {
+                right: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="P3.png" id="image1" class="background-image">
+    <img src="p.png" id="image2" class="background-image">
+    <img src="P2.png" id="image3" class="background-image">
+
+    <p id="animated-text">❤️❤️Holla Maria❤️❤️</p>
+
+    <script>
+        const target = document.getElementById('animated-text');
+        const text = target.innerText;
+        target.innerText = ''; // Vide le texte initial pour l'animation
+        let index = 0;
+
+        function animateText() {
+            if (index < text.length) {
+                target.innerText += text.charAt(index);
+                index++;
+                setTimeout(animateText, 100); // Vitesse de l'animation
+            }
+        }
+
+        animateText();
+    </script>
+</body>
+</html>
